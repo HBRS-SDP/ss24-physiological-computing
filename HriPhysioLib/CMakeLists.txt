@@ -1,4 +1,4 @@
-# Specify the minimum version of CMake required.
+# Specify the minimum version of CMake required
 cmake_minimum_required(VERSION 3.28)
 
 # Define the project name.
@@ -7,7 +7,7 @@ project(hri_physio)
 # Set the C++ standard to C++20.
 set(CMAKE_CXX_STANDARD 20)
 
-# Add submodules
+# Add submodules.
 add_subdirectory(external/liblsl)
 add_subdirectory(external/yaml-cpp)
 
