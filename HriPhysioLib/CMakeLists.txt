@@ -11,6 +11,7 @@ set(CMAKE_CXX_STANDARD 20)
 add_library(hri_physio SHARED
         src/utilities/helpers.cpp
         src/utilities/helpers.h
+        src/utilities/enums.h
 )
 
 # Explicitly set the linker language to C++.
