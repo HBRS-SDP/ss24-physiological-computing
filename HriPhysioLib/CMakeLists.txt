@@ -12,6 +12,8 @@ add_library(hri_physio SHARED
         src/utilities/helpers.cpp
         src/utilities/helpers.h
         src/utilities/enums.h
+        src/utilities/arg_parser.cpp
+        src/utilities/arg_parser.h
 )
 
 # Explicitly set the linker language to C++.
