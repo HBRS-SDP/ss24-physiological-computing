@@ -1,0 +1,6 @@
+[submodule "HriPhysioLib/src/external/liblsl"]
+	path = HriPhysioLib/src/external/liblsl
+	url = https://github.com/sccn/liblsl.git
+[submodule "HriPhysioLib/src/external/yaml-cpp"]
+	path = HriPhysioLib/src/external/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git
