@@ -10,3 +10,9 @@
 [submodule "deps/fmt"]
 	path = deps/fmt
 	url = https://github.com/fmtlib/fmt
+[submodule "HriPhysioLib/external/liblsl"]
+	path = HriPhysioLib/external/liblsl
+	url = https://github.com/sccn/liblsl.git
+[submodule "HriPhysioLib/external/yaml-cpp"]
+	path = HriPhysioLib/external/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git
