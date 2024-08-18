@@ -16,6 +16,8 @@ add_library(hri_physio SHARED
         src/utilities/arg_parser.h
         src/stream/streamer_interface.cpp
         src/stream/streamer_interface.h
+        src/stream/csv_streamer.cpp
+        src/stream/csv_streamer.h
 )
 
 # Explicitly set the linker language to C++.
