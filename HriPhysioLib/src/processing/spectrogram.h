@@ -1,17 +1,16 @@
 //
-// Created by trushar on 27.08.18.
+// Created by trushar on 27.08.19.
 //
 
 
-#ifndef HILBERT_TRANSFORM_H
-#define HILBERT_TRANSFORM_H
+#ifndef SPECTROGRAM_H
+#define SPECTROGRAM_H
 
-#include <memory>
 
 #include "pocketfft.h"
 
 
-class HilbertTransform {
+class Spectrogram {
 private:
     /* ============================================================================
     **  Variables received from the constructor.
@@ -34,19 +33,20 @@ public:
     /* ============================================================================
     **  Main Constructor.
     ** ============================================================================ */
-    explicit HilbertTransform(std::size_t samples);
+    explicit Spectrogram(std::size_t samples);
 
 
     /* ===========================================================================
     **  Destructor.
     ** =========================================================================== */
-    ~HilbertTransform();
+    ~Spectrogram();
 
 
     /* ===========================================================================
     **  Process.
     ** =========================================================================== */
-    void process(const std::vector<double> &source, std::vector<double> &target);
+    void process(const std::vector<double> &source, std::vector<std::vector<double> > &target, double sample_rate,
+                 double stride_ms = 20.0, double window_ms = 20.0);
 
 
     /* ===========================================================================
@@ -55,6 +55,18 @@ public:
     void resize(std::size_t samples);
 
 private:
+    /* ===========================================================================
+    **  Hamming Window.
+    ** =========================================================================== */
+    static auto hammingWindow(std::vector<double> &buffer, std::size_t length) -> void;
+
+
+    /* ===========================================================================
+    **  Resize Matrix.
+    ** =========================================================================== */
+    static void resizeMatrix(std::vector<std::vector<double> > &mat, std::size_t nrows, std::size_t ncols);
+
+
     /* ===========================================================================
     **  Real to Complex.
     ** =========================================================================== */
@@ -72,4 +84,4 @@ private:
     ** =========================================================================== */
     static double absoluteSquare(std::complex<double> value);
 };
-#endif //HILBERT_TRANSFORM_H
+#endif //SPECTROGRAM_H
