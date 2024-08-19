@@ -17,6 +17,11 @@ add_library(hri_physio SHARED
         # Processing
         src/processing/math.h
         src/utilities/helpers.h
+        src/processing/pocketfft.h
+        src/processing/hilbert_transform.h
+        src/processing/hilbert_transform.cpp
+        src/processing/spectrogram.h
+        src/processing/spectrogram.cpp
 )
 
 # Explicitly set the linker language to C++.
