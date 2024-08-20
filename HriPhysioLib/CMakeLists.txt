@@ -10,6 +10,8 @@ set(CMAKE_CXX_STANDARD 20)
 # Define the library target.
 add_library(hri_physio SHARED
 
+        # Core
+        src/core/ring_buffer.h
 
         # Utility source files.
         src/utilities/helpers.h
