@@ -32,6 +32,11 @@ add_library(hri_physio SHARED
         src/manager/thread_manager.h
         src/manager/thread_manager.cpp
 
+
+        # Social interaction related source files.
+        src/social/robot_interface.cpp
+        src/social/robot_interface.h
+
 )
 
 # Explicitly set the linker language to C++.

@@ -1,7 +1,0 @@
-# IDEs
-.idea
-.vscode
-
-# CMake related
-cmake-build-debug
-build
