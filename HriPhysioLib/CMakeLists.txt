@@ -7,36 +7,23 @@ project(hri_physio)
 # Set the C++ standard to C++20.
 set(CMAKE_CXX_STANDARD 20)
 
-# Add submodules.
-add_subdirectory(external/liblsl)
-add_subdirectory(external/yaml-cpp)
-
 # Define the library target.
 add_library(hri_physio SHARED
 
+        # Core
+        src/core/ring_buffer.h
 
         # Utility source files.
-        src/utilities/arg_parser.cpp
-        src/utilities/arg_parser.h
-        src/utilities/enums.h
-        src/utilities/helpers.cpp
         src/utilities/helpers.h
 
-
-
-        # Threading
-        src/manager/thread_manager.h
-        src/manager/thread_manager.cpp
-
-        # Managers
-        src/manager/thread_manager.h
-        src/manager/thread_manager.cpp
-
-
-        # Social interaction related source files.
-        src/social/robot_interface.cpp
-        src/social/robot_interface.h
-
+        # Processing
+        src/processing/math.h
+        src/utilities/helpers.h
+        src/processing/pocketfft.h
+        src/processing/hilbert_transform.h
+        src/processing/hilbert_transform.cpp
+        src/processing/spectrogram.h
+        src/processing/spectrogram.cpp
 )
 
 # Explicitly set the linker language to C++.
