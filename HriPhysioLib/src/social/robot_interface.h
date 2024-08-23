@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 
 enum Peripheral {
     HEAD, RIGHT_ARM, LEFT_ARM, RIGHT_LEG, LEFT_LEG
