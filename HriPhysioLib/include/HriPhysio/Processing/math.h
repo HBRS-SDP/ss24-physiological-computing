@@ -15,51 +15,70 @@
 
 #include <cmath>
 #include <memory>
-
 #include <HriPhysio/helpers.h>
 
 namespace hriPhysio {
     namespace Processing {
         
         /* ============================================================================
-        **  Methods for Math.
+        **  Mathematical Constants
         ** ============================================================================ */
-        const double pi    = 2 * acos(0.0); //-- High precision pi.
-        const double sqrt2 = sqrt(2.0);     //-- High precision sqrt(2.0)
+        const double pi    = 2 * acos(0.0);  // High precision pi
+        const double sqrt2 = sqrt(2.0);      // High precision sqrt(2.0)
 
+        /* ============================================================================
+        **  Calculate the Mean of a Vector
+        ** 
+        **  This function calculates the arithmetic mean of the elements in the vector.
+        **
+        **  @param vec: A vector of type T containing the elements.
+        **  @return T: The mean of the vector elements.
+        ** ============================================================================ */
+       
         template<typename T>
         T mean(const std::vector<T>& vec) {
-
-            T ret;
-            if (vec.size() == 0) { return ret; }
-
+            T ret = 0; //Initialize sum to 0
+            if (vec.empty()) {
+                return ret;
+            }
+            // Sum all elements in the vector
             for (size_t idx = 0; idx < vec.size(); ++idx) {
                 ret += vec[idx];
             }
-
+            // Calculate mean by dividing the sum by the number of elements
             ret /= (T) vec.size();
-
             return ret;
         };
+
+        /* ============================================================================
+        **  Calculate the Standard Deviation of a Vector
+        **
+        **  This function calculates the standard deviation of the elements in the vector.
+        **
+        **  @param vec: A vector of type T containing the elements.
+        **  @return T: The standard deviation of the vector elements.
+        ** ============================================================================ */
 
         template<typename T>
         T stddev(const std::vector<T>& vec) {
-
-            T ret;
-            if (vec.size() == 0) { return ret; }
+            T ret = 0;
+            if (vec.empty()) {
+                return ret;
+            }
 
             T mu = mean(vec);
+            // Compute the sum of squared differences from the mean
             for (size_t idx = 0; idx < vec.size(); ++idx) {
                 ret += pow(vec[idx] - mu, 2);
             }
-        
-            ret /= (T) vec.size();
-            ret = sqrt2(ret);
 
+            // Calculate variance by dividing the sum by the number of elements
+            ret /= (T) vec.size();
+            ret = sqrt2(ret);  // sqrt2 is a constant representing the square root of 2, not to be confused with the square root function.
             return ret;
         };
 
-    }
-}
+    } // namespace Processing
+} // namespace hriPhysio
 
 #endif /* HRI_PHYSIO_PROCESSING_MATH_H */
