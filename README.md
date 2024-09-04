@@ -1,127 +1,147 @@
 # HRI Physio
 
-**Authors:** Shrikar Nakhye, Vedika Chauhan, Trushar Ghanekar
 **Date:** Updated on 12 June 2024
 
 ## Table of Contents
 
 - [Introduction](#introduction)
 - [Library Components](#library-components)
-    - [Core Modules](#core-modules)
-        - [Signal Acquisition](#signal-acquisition)
-        - [Signal Processing](#signal-processing)
-        - [Feature Extraction and Analysis](#feature-extraction-and-analysis)
-    - [Utilities](#utilities)
-        - [File I/O](#file-io)
-        - [Miscellaneous](#miscellaneous)
-    - [Integration Modules](#integration-modules)
-        - [Robot Interaction](#robot-interaction)
-        - [PocketFFT Integration](#pocketfft-integration)
+    - [External Libraries](#external-libraries)
+    - [Source Modules](#source-modules)
+        - [Core](#core)
+        - [Manager](#manager)
+        - [Social](#social)
+        - [Processing](#processing)
+        - [Stream](#stream)
+        - [Utilities](#utilities)
 - [Getting Started](#getting-started)
     - [Installation](#installation)
-- [Contributing](#contributing)
+- [Contributors](#contributors)
 - [License](#license)
 
 ## Introduction
 
-HriPhysioLib is a cutting-edge library specifically designed to advance research in human-robot interaction (HRI) by
-focusing on the processing and analysis of physiological signals. This library integrates multiple data acquisition
-methods, sophisticated signal processing algorithms, and robust analysis tools, making it a comprehensive solution for
-researchers and developers. By facilitating the seamless collection and manipulation of physiological data, HriPhysioLib
-aims to bridge the gap between human physiological responses and robotic systems, thereby enhancing the capabilities and
-responsiveness of robots in interactive scenarios.
-
-The library supports various physiological data sources, including Lab Streaming Layer (LSL), Robot Operating System (
-ROS), ensuring broad compatibility and flexibility in research setups. It includes a range of signal processing
-techniques such as bi-quadratic filtering, Butterworth filters (band-pass, band-notch, high-pass, and low-pass), and
-Hilbert Transform, which are essential for cleaning and transforming raw physiological data. Additionally, feature
-extraction methods like spectrogram generation and comprehensive data visualization tools enable detailed analysis and
-interpretation of physiological signals.
-
-HriPhysioLib also addresses the practical aspects of integrating physiological data with robotic systems. With modules
-for file I/O, threading, and a factory pattern for creating streamers, it provides a solid infrastructure for building
-scalable and efficient research applications. The library's robot interaction modules further allow for seamless
-communication between physiological sensors and robotic platforms, facilitating real-time interaction and data-driven
-decision-making.
-
-Designed with ease of use in mind, HriPhysioLib offers documentation, example use cases, and a structured API reference,
-making it accessible even to those who are new to the field. Whether you are developing new HRI applications, conducting
-experimental research, or exploring novel ways to enhance robot responsiveness through physiological data, HriPhysioLib
-is an invaluable resource.
+HriPhysioLib is a specialized library developed to support research in human-robot interaction (HRI) by focusing on the processing and analysis of physiological signals. It provides tools for data acquisition, signal processing, and analysis, allowing researchers to integrate physiological data with robotic systems effectively. The library is compatible with various data sources like Lab Streaming Layer (LSL) and Robot Operating System (ROS), and includes several signal processing techniques, such as bi-quadratic filtering and Hilbert Transform. HriPhysioLib is designed to be user-friendly, with clear documentation.
 
 ## Library Components
 
-### Core Modules
+### External Libraries
 
-#### Signal Acquisition
+HriPhysioLib integrates two external libraries as Git submodules:
 
-- `lslStreamer.cpp`: Manages streaming of physiological data using Lab Streaming Layer.
-- `rosStreamer.cpp`: Integrates ROS for streaming physiological data.
-- `yarpStreamer.cpp`: Utilizes YARP for physiological data streaming.
+- **liblsl**: A library for streaming physiological data using Lab Streaming Layer (LSL).
+- **yaml-cpp**: A library for parsing and emitting YAML, useful for configuration files and data serialization.
 
-#### Signal Processing
+### Source Modules
 
-- `biquadratic.cpp`: Implements bi quadratic filtering.
-- `butterworthBandNotch.cpp`: Provides Butterworth band-notch filtering.
-- `butterworthBandPass.cpp`: Implements Butterworth band-pass filtering.
-- `butterworthHighPass.cpp`: High-pass filtering with Butterworth filter.
-- `butterworthLowPass.cpp`: Low-pass filtering using Butterworth filter.
-- `hilbertTransform.cpp`: Applies Hilbert Transform for signal processing.
+The `source` folder is organized into several modules, each containing specific functionalities necessary for processing and managing physiological signals.
 
-#### Feature Extraction and Analysis
+#### Core
 
-- `spectrogram.cpp`: Generates spectrograms for signal analysis.
-- `graph.cpp`: Visualizes physiological signals.
+The `Core` module provides foundational structures necessary for the library's operation, specifically focusing on data handling.
 
-### Utilities
+- **ringbuffer.h**: This file implements a ring buffer, a circular data structure that efficiently stores and retrieves data in a FIFO (First In, First Out) manner. This is particularly useful for managing continuous streams of physiological data, ensuring that old data is automatically overwritten when new data comes in.
 
-#### File I/O
+#### Manager
 
-- `csvStreamer.cpp`: Facilitates reading and writing CSV files.
+The `Manager` module is responsible for managing the interaction between the physiological data and robotic systems, as well as handling multithreading.
 
-#### Miscellaneous
+- **robot_manager.h / robot_manager.cpp**: These files define and implement the `RobotManager` class, which handles all interactions with robotic systems. It manages data exchange between the physiological data streams and the robot, ensuring that the robot can respond to physiological signals in real-time.
 
-- `helpers.cpp`: Contains various helper functions.
-- `streamerFactory.cpp`: Factory pattern implementation for creating streamers.
-- `streamerInterface.cpp`: Interface for different streamers.
-- `threadManager.cpp`: Manages threading for concurrent operations.
+- **thread_manager.h / thread_manager.cpp**: These files define and implement the `ThreadManager` class, which manages multithreading within the library. Multithreading is crucial for the efficient processing of data and the management of tasks that need to run concurrently, such as data streaming, signal processing, and robot interaction.
 
-### Integration Modules
+#### Social
 
-#### Robot Interaction
+The `Social` module focuses on the interaction between the robot and the external environment, specifically through interfaces that allow physiological data to influence robot behavior.
 
-- `robotInterface.cpp`: Interfaces with robotic systems.
-- `robotManager.cpp`: Manages robot-related tasks.
-- `physioManager.cpp`: Manages physiological data processing.
+- **robot_interface.h / robot_interface.cpp**: These files define and implement the `RobotInterface` class, which provides a standardized way for the library to interact with various robotic platforms. This interface ensures that physiological data can be used to control or influence robot actions, facilitating real-time, data-driven robotic behavior.
 
-#### PocketFFT Integration
+#### Processing
 
-The library integrates the PocketFFT library, which is a highly optimized Fast Fourier Transform (FFT) implementation.
-PocketFFT offers several advantages:
+The `Processing` module includes all the tools and algorithms necessary for transforming raw physiological data into meaningful signals that can be analyzed or used to control robotic systems.
 
-- Strictly C++17 compliant.
-- Supports multidimensional arrays and various data types (float, double, long double).
-- Offers both complex and half-complex FFTs.
-- Utilizes CPU vector instructions for higher-dimensional transforms.
+- **hilbert_transform.h / hilbert_transform.cpp**: These files define and implement the Hilbert Transform, a mathematical tool used to obtain the analytic representation of a signal. It is crucial for analyzing the phase and envelope of physiological signals, which can provide deeper insights into the underlying physiological processes.
+
+- **math.h**: This file contains various mathematical utilities and functions that are used across the processing module. These utilities support the core signal processing tasks, such as filtering, transformations, and spectral analysis.
+
+- **pocketfft.h**: This file integrates the PocketFFT library, which provides an efficient implementation of the Fast Fourier Transform (FFT). The FFT is essential for converting time-domain signals into their frequency-domain representations, enabling the analysis of the signal's frequency content.
+
+- **spectrogram.h / spectrogram.cpp**: These files define and implement the generation of spectrograms, which are visual representations of a signal's frequency spectrum over time. Spectrograms are useful for analyzing how the frequency content of a physiological signal changes, which can be crucial for tasks like detecting patterns or anomalies.
+
+#### Stream
+
+The `Stream` module handles the streaming of physiological data, both from external sources and to external destinations. This module includes tools for working with different streaming protocols and data formats.
+
+- **csv_streamer.h / csv_streamer.cpp**: These files define and implement the `CSVStreamer` class, which handles the reading from and writing to CSV files. CSV is a common format for storing physiological data, and this class allows for easy integration with other tools that work with CSV files.
+
+- **lsl_streamer.h / lsl_streamer.cpp**: These files define and implement the `LSLStreamer` class, which manages the streaming of physiological data using the Lab Streaming Layer (LSL) protocol. LSL is widely used in research for synchronizing data streams from different sources, and this class enables the integration of physiological data into LSL-compatible systems.
+
+- **streamer_factory.h / streamer_factory.cpp**: These files define and implement the `StreamerFactory` class, which uses the factory design pattern to create instances of different streamers. This pattern allows for flexibility in choosing and switching between different streaming methods (e.g., CSV or LSL) depending on the specific requirements of the research.
+
+- **streamer_interface.h / streamer_interface.cpp**: These files define and implement a common interface for all streamers, ensuring that they all adhere to a consistent API. This makes it easier to work with different streaming protocols without needing to modify the core library code.
+
+#### Utilities
+
+The `Utilities` module provides various helper functions and tools that support the other modules in the library. These utilities handle common tasks that are necessary across the different modules.
+
+- **arg_parser.h / arg_parser.cpp**: These files define and implement a command-line argument parser, making it easier to configure and control the library from the command line. This is particularly useful for researchers who need to quickly adjust settings or parameters without modifying the source code.
+
+- **helper.h / helper.cpp**: These files contain various helper functions that are used across different modules. These functions handle common tasks, such as data conversion, logging, and error handling, which are essential for the smooth operation of the library.
+
+- **enums.h**: This file defines various enumerations that are used throughout the library. Enumerations provide a clear and consistent way to represent different states, options, or configurations, making the code easier to read and maintain.
 
 ## Getting Started
 
 ### Installation
 
-Clone the repository and build the library:
+You can install HriPhysioLib using one of two methods, depending on whether you want to include the external submodules automatically or manually.
+
+#### Method 1: Recursive Git Clone
+
+This method automatically includes the external libraries as submodules.
 
 ```bash
-git clone https://github.com/kothiga/hri-physio.git
+git clone --recursive https://github.com/kothiga/hri-physio.git
 cd hri-physio/HriPhysioLib
 mkdir build
 cd build
 cmake ..
 make
 ```
+#### Method 2: Manual Git Clone and Adding Submodules
 
-## Contributing
+If you clone the repository without the `--recursive` option, you'll need to manually add the external submodules.
 
-Contributions are welcome. Fork the repository, create a feature branch, commit your changes, and open a pull request.
+1. Clone the repository:
+
+ ```bash
+    git clone https://github.com/kothiga/hri-physio.git
+    cd hri-physio/HriPhysioLib
+```
+
+2. Initialize and update the submodules:
+
+```bash
+    git submodule init
+    git submodule update
+```
+
+3. Build the library:
+
+```bash
+    mkdir build
+    cd build
+    cmake ..
+    make
+```
+
+## Contributors
+
+- Austin Kothig
+- Jessy Song
+- Trushar Ghanekar
+- Vedika Chauhan
+- Shrikar Nakhye
 
 ## License
 
