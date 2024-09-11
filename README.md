@@ -90,6 +90,21 @@ The `Utilities` module provides various helper functions and tools that support 
 
 - `enums.h`: Defines various enumerations that are used throughout the library. Enumerations provide a clear and consistent way to represent different states, options, or configurations, making the code easier to read and maintain.
 
+### CLI Testing
+
+The `cli` folder in the main library is designed for testing the library's processing capabilities, specifically focusing on the Hilbert Transform. This command-line interface (CLI) primarily tests the processing of ECG (Electrocardiogram) data, which is generated using the [NeuroKit library](https://github.com/neuropsychology/NeuroKit).
+
+Key features of the `cli` testing setup:
+
+- **Data Input and Output**: The CLI reads ECG data from a CSV file, applies the Hilbert Transform to the data, and writes the results to a new CSV file. This allows for a straightforward method of verifying the functionality of the processing algorithms.
+  
+- **Hilbert Transform**: The primary processing function tested is the Hilbert Transform, which is implemented in the library to compute the analytic signal of the ECG data, providing both amplitude and phase information.
+
+- **CSV Streamers**: The testing program utilizes `CSVStreamer` for both input and output operations, facilitating the reading and writing of data in CSV format. The CSV files are expected to contain single-channel ECG data, and the output file includes both the original data and the Hilbert-transformed data.
+
+The `cli` folder contains a simple test program (`main.cpp`) that executes the entire process. This setup allows researchers and developers to verify the processing functions of the library before integrating it into larger systems. However, it does not utilize the full functionality of the library, such as streaming protocols or robotic control.
+
+
 ## Getting Started
 
 ### Installation
