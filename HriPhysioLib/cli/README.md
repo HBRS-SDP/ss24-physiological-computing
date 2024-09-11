@@ -60,12 +60,6 @@ file_path = os.path.join(save_directory, 'ecg_data.csv')
 df_ecg.to_csv(file_path, index=False)
 ```
 
-To run this script and generate the `ecg_data.csv` file, navigate to the [data](./data/ecg_data.csv) directory and execute the Python script:
-
-```bash
-python data_extract.py
-```
-
 This will save the ECG data in `ecg_data.csv` in the same folder.
 
 ### 3. Build the Main Library
