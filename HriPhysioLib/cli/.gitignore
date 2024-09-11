@@ -1,0 +1,13 @@
+# IDEs
+.idea
+.vscode
+
+# CMake related
+cmake-build-debug
+build
+
+# macOS
+.DS_Store
+
+# Data
+data
