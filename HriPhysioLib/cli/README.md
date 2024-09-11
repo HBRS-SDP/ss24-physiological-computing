@@ -34,14 +34,14 @@ pip install pandas
 In order to test the Hilbert Transform with the CLI tool, you need a CSV file containing ECG data. You can either use an existing ECG data file or generate one using **NeuroKit2**.
 
 #### Generating and Saving ECG Data
-
-There is a Python file named `data_extract.py` located in the `./HriPhysioLib/cli/data/` directory. This script will generate and save ECG data as a CSV file using **NeuroKit2**.
+There is a Python file named `data_extract.py` located in the [data_extract](./data/data_extract.py) directory. This script will generate and save ECG data as a CSV file using **NeuroKit2**.
 
 Here is how the `data_extract.py` file looks:
 
 ```python
 import neurokit2 as nk
 import pandas as pd
+import os
 
 # Load ECG data (returns a NumPy array)
 ecg = nk.data('ecg_1000hz.csv')
@@ -49,11 +49,18 @@ ecg = nk.data('ecg_1000hz.csv')
 # Convert the NumPy array to a Pandas DataFrame
 df_ecg = pd.DataFrame(ecg)
 
-# Save the DataFrame as a CSV file
-df_ecg.to_csv('ecg_data.csv', index=False)
+# Define the path where you want to save the file
+save_directory = os.path.join('HriPhysioLib', 'cli', 'data')
+
+# Ensure the directory exists
+os.makedirs(save_directory, exist_ok=True)
+
+# Save the DataFrame as a CSV file in the specified directory
+file_path = os.path.join(save_directory, 'ecg_data.csv')
+df_ecg.to_csv(file_path, index=False)
 ```
 
-To run this script and generate the `ecg_data.csv` file, navigate to the `./HriPhysioLib/cli/data/` directory and execute the Python script:
+To run this script and generate the `ecg_data.csv` file, navigate to the [data](./data/ecg_data.csv) directory and execute the Python script:
 
 ```bash
 python data_extract.py
@@ -65,7 +72,7 @@ This will save the ECG data in `ecg_data.csv` in the same folder.
 
 Before running the CLI test, you need to ensure that the main **HriPhysioLib** library is built.
 
-Navigate to the **build.sh** script located at `./HriPhysioLib/lib/build.sh`. Run the following commands to build the library:
+Navigate to the **build.sh** script located at [build](../lib/build.sh). Run the following commands to build the library:
 
 ```bash
 cd ./HriPhysioLib/lib
@@ -78,7 +85,7 @@ This script will compile the library and prepare it for use.
 
 After building the main library, you need to build the CLI example, which is designed to test the Hilbert Transform on the generated ECG data.
 
-The CLI example has its own `build.sh` script located at `./HriPhysioLib/cli/build.sh`. To build the CLI example, navigate to the `cli` folder and run the following commands:
+The CLI example has its own `build.sh` script located at [build](build.sh). To build the CLI example, navigate to the `cli` folder and run the following commands:
 
 ```bash
 cd ./HriPhysioLib/cli
@@ -87,7 +94,7 @@ bash build.sh
 
 ### 5. Run the CLI Test
 
-Once the CLI example is built, you can run the Hilbert Transform test on the ECG data. Ensure that the `ecg_data.csv` file (generated from the NeuroKit2 library) is in the correct directory (`./HriPhysioLib/cli/data/`).
+Once the CLI example is built, you can run the Hilbert Transform test on the ECG data. Ensure that the `ecg_data.csv` file (generated from the NeuroKit2 library) is in the correct directory [data](./data).
 
 
 This will apply the Hilbert Transform to the ECG data and verify that the library processes the signals correctly.
