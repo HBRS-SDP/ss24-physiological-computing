@@ -104,7 +104,7 @@ Key features of the `cli` testing setup:
 
 The `cli` folder contains a simple test program (`main.cpp`) that executes the entire process. This setup allows researchers and developers to verify the processing functions of the library before integrating it into larger systems. However, it does not utilize the full functionality of the library, such as streaming protocols or robotic control.
 
-For more detailed instructions on using the example, visit the [CLI folder README](./HriPhysioLib/cli/README.md).
+For more detailed instructions on using the example, visit the [Instructions](./HriPhysioLib/cli/README.md).
 ## Getting Started
 
 ### Installation
