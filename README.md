@@ -105,6 +105,7 @@ Key features of the `cli` testing setup:
 The `cli` folder contains a simple test program (`main.cpp`) that executes the entire process. This setup allows researchers and developers to verify the processing functions of the library before integrating it into larger systems. However, it does not utilize the full functionality of the library, such as streaming protocols or robotic control.
 
 For more detailed instructions on using the example, visit the [Instructions](./HriPhysioLib/cli/README.md).
+
 ## Getting Started
 
 ### Installation
@@ -118,11 +119,14 @@ This method automatically includes the external libraries as submodules.
 ```bash
 git clone --recursive https://github.com/kothiga/hri-physio.git
 cd hri-physio/HriPhysioLib
-mkdir build
-cd build
-cmake ..
-make
 ```
+
+Then, to build the library, simply run the provided build script:
+
+```bash
+./lib/build.sh
+```
+
 #### Method 2: Manual Git Clone and Adding Submodules
 
 If you clone the repository without the `--recursive` option, you'll need to manually add the external submodules.
@@ -130,26 +134,22 @@ If you clone the repository without the `--recursive` option, you'll need to man
 1. Clone the repository:
 
  ```bash
-    git clone https://github.com/kothiga/hri-physio.git
-    cd hri-physio/HriPhysioLib
+git clone https://github.com/kothiga/hri-physio.git
+cd hri-physio/HriPhysioLib
 ```
 
 2. Initialize and update the submodules:
 
 ```bash
-    git submodule init
-    git submodule update
+git submodule init
+git submodule update
 ```
 
-3. Build the library:
+3. To build the library, use the following command:
 
 ```bash
-    mkdir build
-    cd build
-    cmake ..
-    make
+./lib/build.sh
 ```
-
 ## Contributors
 
 - Austin Kothig
