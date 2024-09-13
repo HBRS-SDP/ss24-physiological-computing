@@ -152,11 +152,11 @@ git submodule update
 ```
 ## Contributors
 
-- Austin Kothig
+- Austin Kothig <austin.kothig@uwaterloo.ca>
 - Jessy Song
-- Trushar Ghanekar
-- Vedika Chauhan
-- Shrikar Nakhye
+- Trushar Ghanekar <trushar.ghanekar@smail.inf.h-brs.de>
+- Vedika Chauhan <vedika.chauhan@smail.inf.h-brs.de>
+- Shrikar Nakhye <shrikar.nakhye@smail.inf.h-brs.de>
 
 ## License
 

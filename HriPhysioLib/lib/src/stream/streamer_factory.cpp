@@ -1,3 +1,15 @@
+/* ================================================================================
+ * Copyright: (C) 2020, SIRRL Social and Intelligent Robotics Research Laboratory, 
+ *     University of Waterloo, All rights reserved.
+ *     Hochschule Bonn-Rhein-Sieg, All rights reserved.
+ * 
+ * Authors: 
+ *     Austin Kothig <austin.kothig@uwaterloo.ca>
+ *     Shrikar Nakhye <shrikar.nakhye@smail.inf.h-brs.de>
+ * CopyPolicy: Released under the terms of the MIT License. 
+ *     See the accompanying LICENSE file for details.
+ * ================================================================================
+ */
 #include "streamer_factory.h"
 
 StreamerInterface *StreamerFactory::get_streamer(std::string streamer_type)
