@@ -1,0 +1,6 @@
+[submodule "lib/external/yaml-cpp"]
+	path = lib/external/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git
+[submodule "lib/external/liblsl"]
+	path = lib/external/liblsl
+	url = https://github.com/sccn/liblsl.git

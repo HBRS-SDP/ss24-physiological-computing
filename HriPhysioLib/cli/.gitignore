@@ -1,0 +1,6 @@
+# Build artifacts
+cmake-build-debug
+build
+
+# Generated test data
+data
