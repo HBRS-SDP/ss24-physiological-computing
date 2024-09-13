@@ -2,6 +2,10 @@
 .idea
 .vscode
 
+# Python-related
+__pycache__
+venv
+
 # OS-related
 .DS_Store
 Thumbs.db
