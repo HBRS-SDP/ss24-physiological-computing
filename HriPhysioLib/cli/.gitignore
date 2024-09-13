@@ -1,6 +1,10 @@
-# Build artifacts
+# IDEs
+.idea
+.vscode
+
+# CMake related
 cmake-build-debug
 build
 
-# Generated test data
-data
+# macOS
+.DS_Store
