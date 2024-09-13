@@ -14,6 +14,8 @@
         - [Processing](#processing)
         - [Stream](#stream)
         - [Utilities](#utilities)
+        - [Tests](#tests)
+- [Test](#test)
 - [Getting Started](#getting-started)
     - [Installation](#installation)
 - [Contributors](#contributors)
@@ -106,7 +108,52 @@ The `cli` folder contains a simple test program (`main.cpp`) that executes the e
 
 For more detailed instructions on using the example, visit the [Instructions](./HriPhysioLib/cli/README.md).
 
-## Getting Started
+### Tests
+The `Tests` module provides test functions and tools that test certain functions in the library.
+- **test ring buffer**: 
+This test suite verifies the functionality of the `RingBuffer`.
+
+### Test Cases:
+
+1. **InitializeBuffer**  
+   - Ensures the ring buffer initializes correctly with a specified size, starts empty, and reports a size of zero.
+
+2. **PushAndPop**  
+   - Verifies that data can be pushed to and popped from the buffer in the correct order (FIFO).
+
+3. **OverflowHandling**  
+   - Tests how the buffer handles overflow when it reaches its capacity. Assumes that the buffer overwrites the oldest data when full.
+
+
+## Test
+## HilbertTransform Test Suite
+
+This test suite ensures the correct functionality of the `HilbertTransform` class.
+
+### Test Cases:
+
+1. **ConstructorTest**  
+   - Ensures that the `HilbertTransform` constructor initializes without throwing exceptions for valid input sizes.
+
+2. **ResizeTest**  
+   - Verifies that the `resize()` function operates correctly, allowing size changes without errors.
+
+3. **ProcessZeroInput**  
+   - Confirms that processing a vector of zeros results in an output of zeros, validating handling of zero input.
+
+4. **ProcessDifferentSizes**  
+   - Ensures the `process()` method can handle different input sizes and returns an output of matching size.
+
+### Helper Function:
+- `ExpectNearVector`: Used to compare two vectors with a specified tolerance, ensuring accurate result comparisons during tests.
+
+### Running the Tests:
+
+```bash
+mkdir build && cd build
+cmake ..
+make
+./run-tests.sh
 
 ### Installation
 
@@ -150,6 +197,16 @@ git submodule update
 ```bash
 ./lib/build.sh
 ```
+#### Method 3: Makefile
+- Use `make build-library` to build the library.
+- Use `make run-library-tests` to build the library and run its tests.
+- Use `make run-cli` to build the library, build the CLI, and run it.
+
+## Tested and Verified on:
+
+* 64 Bit Ubuntu 22.04.5 LTS
+* macOS Sonoma 14.6.1
+
 ## Contributors
 
 - Austin Kothig <austin.kothig@uwaterloo.ca>
