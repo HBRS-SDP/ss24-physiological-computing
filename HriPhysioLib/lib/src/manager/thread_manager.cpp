@@ -1,3 +1,14 @@
+/* ================================================================================
+ * Copyright: (C) 2021, SIRRL Social and Intelligent Robotics Research Laboratory, 
+ *     University of Waterloo, All rights reserved.
+ * 
+ * Authors: 
+ *     Austin Kothig <austin.kothig@uwaterloo.ca>
+ * 
+ * CopyPolicy: Released under the terms of the BSD 3-Clause License. 
+ *     See the accompanying LICENSE file for details.
+ * ================================================================================
+ */
 #include "thread_manager.h"
 #include <atomic>
 #include <iostream>
