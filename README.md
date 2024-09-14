@@ -1,101 +1,171 @@
-# HRI Physio
+---
 
-**Date:** Updated on 12 June 2024
+# 🌟 **HRI Physio Library** 🌟
 
-## Table of Contents
+**Last Updated:** *Sept 14, 2024*
 
-- [Introduction](#introduction)
-- [Library Components](#library-components)
-    - [External Libraries](#external-libraries)
-    - [Source Modules](#source-modules)
-        - [Core](#core)
-        - [Manager](#manager)
-        - [Social](#social)
-        - [Processing](#processing)
-        - [Stream](#stream)
-        - [Utilities](#utilities)
-        - [Tests](#tests)
-- [Test](#test)
-- [Getting Started](#getting-started)
-    - [Installation](#installation)
-- [Contributors](#contributors)
-- [License](#license)
+---
 
-## Introduction
+## 📜 **Table of Contents** 
 
-HriPhysioLib is a specialized library developed to support research in human-robot interaction (HRI) by focusing on the processing and analysis of physiological signals. It provides tools for data acquisition, signal processing, and analysis, allowing researchers to integrate physiological data with robotic systems effectively. The library is compatible with various data sources like Lab Streaming Layer (LSL) and Robot Operating System (ROS), and includes several signal processing techniques, such as bi-quadratic filtering and Hilbert Transform. HriPhysioLib is designed to be user-friendly, with clear documentation.
+- [📘 Introduction](#introduction)
+- [🧩 Library Components](#library-components)
+  - [📦 External Libraries](#external-libraries)
+  - [📂 Source Modules](#source-modules)
+    - [🛠️ Core](#core)
+    - [🔧 Manager](#manager)
+    - [🤖 Social](#social)
+    - [🔬 Processing](#processing)
+    - [💾 Stream](#stream)
+    - [⚙️ Utilities](#utilities)
+    - [🧪 Tests](#tests)
+- [🖥️ CLI Testing](#cli-testing)
+- [🚀 Getting Started](#getting-started)
+  - [💻 Installation](#installation)
+    - [🔍 Method 1: Recursive Git Clone](#method-1-recursive-git-clone)
+    - [🔧 Method 2: Manual Git Clone and Adding Submodules](#method-2-manual-git-clone-and-adding-submodules)
+- [👥 Contributors](#contributors)
+- [📄 License](#license)
 
-## Library Components
+---
 
-### External Libraries
+## 📘 **Introduction**
 
-HriPhysioLib integrates two external libraries as Git submodules:
+Welcome to **HriPhysioLib**! 🎉 This library is designed for researchers in **Human-Robot Interaction (HRI)**, specifically tailored for **physiological signal processing**. Whether you're analyzing **ECG data** 🩺 or synchronizing robotic systems with physiological inputs 🤖, this library provides the tools to make that happen seamlessly!
 
-- `liblsl`: A library for streaming physiological data using Lab Streaming Layer (LSL).
-- `yaml-cpp`: A library for parsing and emitting YAML, useful for configuration files and data serialization.
+With support for **Lab Streaming Layer (LSL)** and **Robot Operating System (ROS)**, and advanced signal processing techniques like **bi-quadratic filtering** and the **Hilbert Transform**, it's ideal for cutting-edge research in physiological data analysis.
 
-### Source Modules
+Let’s dive into the details!
 
-The `source` folder is organized into several modules, each containing specific functionalities necessary for processing and managing physiological signals.
+---
 
-#### Core
+## 🧩 **Library Components**
 
-The `Core` module provides foundational structures necessary for the library's operation, specifically focusing on data handling.
+### 📦 **External Libraries**
 
-- `ringbuffer.h`: Implements a ring buffer, a circular data structure that efficiently stores and retrieves data in a FIFO (First In, First Out) manner. This is particularly useful for managing continuous streams of physiological data, ensuring that old data is automatically overwritten when new data comes in.
+**HriPhysioLib** integrates external submodules to extend its functionality. These are:
 
-#### Manager
+- **`liblsl`** 🛠️: For streaming physiological data using **Lab Streaming Layer (LSL)**.
+- **`yaml-cpp`** 🗂️: For parsing and emitting **YAML** files, useful in handling configurations.
 
-The `Manager` module is responsible for managing the interaction between the physiological data and robotic systems, as well as handling multithreading.
+### 📂 **Source Modules**
 
-- `robot_manager.h`, `robot_manager.cpp`: Define and implement the `RobotManager` class, which handles all interactions with robotic systems. It manages data exchange between the physiological data streams and the robot, ensuring that the robot can respond to physiological signals in real-time.
+The **source** folder is divided into several modules, each with a specific role:
 
-- `thread_manager.h`, `thread_manager.cpp`: Define and implement the `ThreadManager` class, which manages multithreading within the library. Multithreading is crucial for the efficient processing of data and the management of tasks that need to run concurrently, such as data streaming, signal processing, and robot interaction.
+#### 🛠️ **Core**
+The **Core** module provides essential data structures. The key component here is the **Ring Buffer**, a circular structure used for managing physiological data streams in **FIFO** (First In, First Out) order.
 
-#### Social
+- **`ringbuffer.h`**: The heart of this module, providing the ring buffer functionality.
 
-The `Social` module focuses on the interaction between the robot and the external environment, specifically through interfaces that allow physiological data to influence robot behavior.
+#### 🔧 **Manager**
+The **Manager** module handles the coordination between robotic systems 🤖 and physiological data. It includes multithreading for efficient, real-time operations.
 
-- `robot_interface.h`, `robot_interface.cpp`: Define and implement the `RobotInterface` class, which provides a standardized way for the library to interact with various robotic platforms. This interface ensures that physiological data can be used to control or influence robot actions, facilitating real-time, data-driven robotic behavior.
+- **`robot_manager.h/cpp`**: Enables data exchange between robots and physiological data.
+- **`thread_manager.h/cpp`**: Manages multithreaded processes for data streaming and processing.
 
-#### Processing
+#### 🤖 **Social**
+The **Social** module is all about integrating robots with the outside world using physiological signals to drive behaviors 🚶‍♂️→🤖.
 
-The `Processing` module includes all the tools and algorithms necessary for transforming raw physiological data into meaningful signals that can be analyzed or used to control robotic systems.
+- **`robot_interface.h/cpp`**: The standard interface to communicate with robots.
 
-- `hilbert_transform.h`, `hilbert_transform.cpp`: Define and implement the Hilbert Transform, a mathematical tool used to obtain the analytic representation of a signal. It is crucial for analyzing the phase and envelope of physiological signals, which can provide deeper insights into the underlying physiological processes.
+#### 🔬 **Processing**
+This is where the magic of transforming raw data into something meaningful happens! 🧙‍♂️ The **Processing** module includes:
 
-- `math.h`: Contains various mathematical utilities and functions that are used across the processing module. These utilities support the core signal processing tasks, such as filtering, transformations, and spectral analysis.
+- **`hilbert_transform.h/cpp`**: For applying the **Hilbert Transform** to physiological signals.
+- **`pocketfft.h`**: Handles **Fourier Transforms** for time-frequency analysis.
+- **`spectrogram.h/cpp`**: Generates **spectrograms** for visualizing signal frequencies over time.
 
-- `pocketfft.h`: Integrates the PocketFFT library, which provides an efficient implementation of the Fast Fourier Transform (FFT). The FFT is essential for converting time-domain signals into their frequency-domain representations, enabling the analysis of the signal's frequency content.
+#### 💾 **Stream**
+The **Stream** module manages data flow from external sources to the processing pipeline 📊.
 
-- `spectrogram.h`, `spectrogram.cpp`: Define and implement the generation of spectrograms, which are visual representations of a signal's frequency spectrum over time. Spectrograms are useful for analyzing how the frequency content of a physiological signal changes, which can be crucial for tasks like detecting patterns or anomalies.
+- **`csv_streamer.h/cpp`**: Handles data in **CSV format**.
+- **`lsl_streamer.h/cpp`**: Facilitates **LSL-based** physiological data streaming.
 
-#### Stream
+#### ⚙️ **Utilities**
+The **Utilities** module offers various helper tools to smooth your workflow 🛠️.
 
-The `Stream` module handles the streaming of physiological data, both from external sources and to external destinations. This module includes tools for working with different streaming protocols and data formats.
+- **`arg_parser.h/cpp`**: Parses command-line arguments for easy library configuration.
+- **`helper.h/cpp`**: Contains useful functions like data conversion and logging.
 
-- `csv_streamer.h`, `csv_streamer.cpp`: Define and implement the `CSVStreamer` class, which handles the reading from and writing to CSV files. CSV is a common format for storing physiological data, and this class allows for easy integration with other tools that work with CSV files.
+#### 🧪 **Tests**
+The **Tests** module is vital for ensuring all the core functionalities work as intended. ✔️
 
-- `lsl_streamer.h`, `lsl_streamer.cpp`: Define and implement the `LSLStreamer` class, which manages the streaming of physiological data using the Lab Streaming Layer (LSL) protocol. LSL is widely used in research for synchronizing data streams from different sources, and this class enables the integration of physiological data into LSL-compatible systems.
+Certainly! Here’s the updated **Tests** section with the details you provided about the test cases and how to run them.
 
-- `streamer_factory.h`, `streamer_factory.cpp`: Define and implement the `StreamerFactory` class, which uses the factory design pattern to create instances of different streamers. This pattern allows for flexibility in choosing and switching between different streaming methods (e.g., CSV or LSL) depending on the specific requirements of the research.
+---
 
-- `streamer_interface.h`, `streamer_interface.cpp`: Define and implement a common interface for all streamers, ensuring that they all adhere to a consistent API. This makes it easier to work with different streaming protocols without needing to modify the core library code.
+## 🧪 **Tests**
 
-#### Utilities
+The **Tests** module includes comprehensive test suites to verify the core functionalities of the library. These tests ensure that critical components, such as the **RingBuffer** and the **HilbertTransform**, behave as expected in various scenarios.
 
-The `Utilities` module provides various helper functions and tools that support the other modules in the library. These utilities handle common tasks that are necessary across the different modules.
+### **Test Suites and Cases**
 
-- `arg_parser.h`, `arg_parser.cpp`: Define and implement a command-line argument parser, making it easier to configure and control the library from the command line. This is particularly useful for researchers who need to quickly adjust settings or parameters without modifying the source code.
+#### 📦 **Ring Buffer Test Suite**
 
-- `helper.h`, `helper.cpp`: Contain various helper functions that are used across different modules. These functions handle common tasks, such as data conversion, logging, and error handling, which are essential for the smooth operation of the library.
+The **RingBuffer** test suite ensures that the circular buffer, essential for streaming continuous physiological data, operates correctly.
 
-- `enums.h`: Defines various enumerations that are used throughout the library. Enumerations provide a clear and consistent way to represent different states, options, or configurations, making the code easier to read and maintain.
+- **Test Cases:**
+  
+  1. **InitializeBuffer**  
+     - Ensures the ring buffer is initialized with the specified size, starts empty, and reports a size of zero.
+  
+  2. **PushAndPop**  
+     - Verifies that data is added and retrieved in the correct order (FIFO – First In, First Out).
+  
+  3. **OverflowHandling**  
+     - Tests how the buffer behaves when it reaches its capacity. It verifies that when full, the buffer overwrites the oldest data.
 
-### CLI Testing
+#### 🧠 **HilbertTransform Test Suite**
 
-The `cli` folder in the main library is designed for testing the library's processing capabilities, specifically focusing on the Hilbert Transform. This command-line interface (CLI) primarily tests the processing of ECG (Electrocardiogram) data, which is generated using the [NeuroKit library](https://github.com/neuropsychology/NeuroKit).
+This test suite ensures the **HilbertTransform** class, responsible for signal processing, works as expected across different use cases.
 
+- **Test Cases:**
+  
+  1. **ConstructorTest**  
+     - Ensures the constructor of the **HilbertTransform** class initializes without errors for valid input sizes.
+  
+  2. **ResizeTest**  
+     - Verifies the **resize()** function changes the size of the internal buffer without issues.
+  
+  3. **ProcessZeroInput**  
+     - Confirms that when a vector of zeros is processed, the output is also a vector of zeros, validating the handling of edge cases.
+  
+  4. **ProcessDifferentSizes**  
+     - Ensures the **process()** method correctly handles input vectors of varying sizes and returns output of matching size.
+
+- **Helper Function:**
+  - **ExpectNearVector**  
+    - Compares two vectors with a specified tolerance to ensure the accuracy of results during the tests.
+
+---
+
+### 🔧 **Running the Tests**
+
+To build and run the test suite, follow these steps:
+
+```bash
+# Create a build directory and navigate into it
+mkdir build && cd build
+
+# Generate the build system files
+cmake ..
+
+# Build the tests
+make
+
+# Run the test suite
+./run-tests.sh
+```
+
+This will execute all the test cases and display the results in the terminal.
+
+---
+
+## 🖥️ **CLI Testing**
+
+The **CLI testing** framework 🖥️ allows you to test the library’s functionality directly from the command line, focusing on the **Hilbert Transform** application on **ECG data** generated using the [NeuroKit library](https://github.com/neuropsychology/NeuroKit). 
+
+### Key Features:
 Key features of the `cli` testing setup:
 
 - **Data Input and Output**: The CLI reads ECG data from a CSV file, applies the Hilbert Transform to the data, and writes the results to a new CSV file. This allows for a straightforward method of verifying the functionality of the processing algorithms.
@@ -108,115 +178,79 @@ The `cli` folder contains a simple test program (`main.cpp`) that executes the e
 
 For more detailed instructions on using the example, visit the [Instructions](./HriPhysioLib/cli/README.md).
 
-### Tests
-The `Tests` module provides test functions and tools that test certain functions in the library.
-- **test ring buffer**: 
-This test suite verifies the functionality of the `RingBuffer`.
 
-### Test Cases:
+## 🚀 **Getting Started**
 
-1. **InitializeBuffer**  
-   - Ensures the ring buffer initializes correctly with a specified size, starts empty, and reports a size of zero.
+### 💻 **Installation**
 
-2. **PushAndPop**  
-   - Verifies that data can be pushed to and popped from the buffer in the correct order (FIFO).
+There are two methods to install **HriPhysioLib**:
 
-3. **OverflowHandling**  
-   - Tests how the buffer handles overflow when it reaches its capacity. Assumes that the buffer overwrites the oldest data when full.
+#### 🔍 **Method 1: Recursive Git Clone**
 
-
-## Test
-## HilbertTransform Test Suite
-
-This test suite ensures the correct functionality of the `HilbertTransform` class.
-
-### Test Cases:
-
-1. **ConstructorTest**  
-   - Ensures that the `HilbertTransform` constructor initializes without throwing exceptions for valid input sizes.
-
-2. **ResizeTest**  
-   - Verifies that the `resize()` function operates correctly, allowing size changes without errors.
-
-3. **ProcessZeroInput**  
-   - Confirms that processing a vector of zeros results in an output of zeros, validating handling of zero input.
-
-4. **ProcessDifferentSizes**  
-   - Ensures the `process()` method can handle different input sizes and returns an output of matching size.
-
-### Helper Function:
-- `ExpectNearVector`: Used to compare two vectors with a specified tolerance, ensuring accurate result comparisons during tests.
-
-### Running the Tests:
+This method automatically pulls the external submodules for you.
 
 ```bash
-mkdir build && cd build
-cmake ..
-make
-./run-tests.sh
-
-### Installation
-
-You can install HriPhysioLib using one of two methods, depending on whether you want to include the external submodules automatically or manually.
-
-#### Method 1: Recursive Git Clone
-
-This method automatically includes the external libraries as submodules.
-
-```bash
-git clone --recursive https://github.com/kothiga/hri-physio.git
+git clone --recursive https://github.com/HBRS-SDP/ss24-physiological-computing.git
 cd hri-physio/HriPhysioLib
 ```
 
-Then, to build the library, simply run the provided build script:
+Then, to build and test the library, simply use:
 
 ```bash
-./lib/build.sh
+make build-library
+make run-library-tests
+make run-cli
 ```
 
-#### Method 2: Manual Git Clone and Adding Submodules
+#### 🔧 **Method 2: Manual Git Clone and Adding Submodules**
 
-If you clone the repository without the `--recursive` option, you'll need to manually add the external submodules.
+Alternatively, if you prefer manual control over submodules, follow these steps:
 
-1. Clone the repository:
-
- ```bash
-git clone https://github.com/kothiga/hri-physio.git
+```bash
+git clone https://github.com/HBRS-SDP/ss24-physiological-computing.git
 cd hri-physio/HriPhysioLib
 ```
 
-2. Initialize and update the submodules:
+Next, initialize and update the submodules:
 
 ```bash
 git submodule init
 git submodule update
 ```
 
-3. To build the library, use the following command:
+Then, use the same **Makefile** commands as in Method 1 to build and run tests:
 
 ```bash
-./lib/build.sh
+make build-library
+make run-library-tests
+make run-cli
 ```
-#### Method 3: Makefile
-- Use `make build-library` to build the library.
-- Use `make run-library-tests` to build the library and run its tests.
-- Use `make run-cli` to build the library, build the CLI, and run it.
 
-## Tested and Verified on:
+---
 
-* 64 Bit Ubuntu 22.04.5 LTS
-* macOS Sonoma 14.6.1
+### 🖥️ **Tested and Verified On**
 
-## Contributors
+- **64-bit Ubuntu 22.04.5 LTS** 🐧
+- **macOS Sonoma 14.6.1** 🍎
 
-- Austin Kothig <austin.kothig@uwaterloo.ca>
-- Jessy Song
-- Trushar Ghanekar <trushar.ghanekar@smail.inf.h-brs.de>
-- Vedika Chauhan <vedika.chauhan@smail.inf.h-brs.de>
-- Shrikar Nakhye <shrikar.nakhye@smail.inf.h-brs.de>
+---
 
-## License
+## 👥 **Contributors**
 
-HriPhysioLib is licensed under the MIT License.
+Big thanks to our amazing contributors who made **HriPhysioLib** possible! 🙌
 
-For more information, visit the [GitHub repository](https://github.com/kothiga/hri-physio).
+- **Austin Kothig** 📧: austin.kothig@uwaterloo.ca
+- **Jessy Song**
+- **Trushar Ghanekar** 📧: trushar.ghanekar@smail.inf.h-brs.de
+- **Vedika Chauhan** 📧: vedika.chauhan@smail.inf.h-brs.de
+- **Shrikar Nakhye** 📧: shrikar.nakhye@smail.inf.h-brs.de
+
+---
+
+## 📄 **License**
+
+**HriPhysioLib** is licensed under the **MIT License** 📜. For more details, please visit the [GitHub Repository](https://github.com/kothiga/hri-physio).
+
+---
+
+Enjoy exploring the world of **Human-Robot Interaction** with physiological data! 🧠🤖
