@@ -5,3 +5,7 @@
 # OS-related
 .DS_Store
 Thumbs.db
+
+# Build artifacts
+cmake-build-debug
+build/
