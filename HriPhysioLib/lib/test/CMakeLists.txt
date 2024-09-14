@@ -15,7 +15,8 @@ FetchContent_MakeAvailable(googletest)
 add_executable(hri_physio_tests hilbert-transform-test.cpp)
 
 # Specify the path to your dynamic library
-set(HRI_PHYSIO_LIB_PATH "${CMAKE_SOURCE_DIR}/../build/libhri_physio.dylib")
+set(HRI_PHYSIO_LIB_PATH "${CMAKE_SOURCE_DIR}/../build/libhri_physio.dylib") # For macOS
+#set(HRI_PHYSIO_LIB_PATH "${CMAKE_SOURCE_DIR}/../build/libhri_physio.so”) # For Linux
 
 # Link against the dynamic library and Google Test
 target_link_libraries(hri_physio_tests PRIVATE 

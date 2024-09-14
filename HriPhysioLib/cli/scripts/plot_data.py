@@ -44,7 +44,7 @@ def plot_ecg_data_with_hilbert(raw_ecg_file, hilbert_transformed_file):
     plt.show()
 
 # Example usage
-raw_ecg_file = './ecg_data.csv'
-hilbert_transformed_file = './ecg_data_with_hilbert.csv'
+raw_ecg_file = '../data/ecg_data.csv'
+hilbert_transformed_file = '../data/ecg_data_with_hilbert.csv'
 
 plot_ecg_data_with_hilbert(raw_ecg_file, hilbert_transformed_file)
