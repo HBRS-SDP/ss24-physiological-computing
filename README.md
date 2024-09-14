@@ -1,10 +1,6 @@
----
-
 # 🌟 **HRI Physio Library** 🌟
 
 **Last Updated:** *Sept 14, 2024*
-
----
 
 ## 📜 **Table of Contents** 
 
