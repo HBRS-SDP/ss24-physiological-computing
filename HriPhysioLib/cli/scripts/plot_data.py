@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -24,27 +25,45 @@ def plot_ecg_data_with_hilbert(raw_ecg_file, hilbert_transformed_file):
     phase_raw = np.angle(analytic_signal_raw)
     phase_hilbert = np.angle(trimmed_hilbert_transformed_data + 1j * np.imag(trimmed_hilbert_transformed_data))
 
-    # Plot the phases with distinct colors
-    plt.figure(figsize=(8, 4))
+    # Create subplots for the raw ECG, Hilbert-transformed data, and phase plots
+    plt.figure(figsize=(10, 10))
 
-    # Plot the corrected raw ECG phase in blue
+    # Plot 1: Raw ECG data
+    plt.subplot(3, 1, 1)
+    plt.plot(trimmed_raw_ecg_data, label='Raw ECG Data', color='green', linewidth=1.5)
+    plt.title('Raw ECG Data')
+    plt.xlabel('Sample Index')
+    plt.ylabel('Amplitude')
+    plt.legend()
+
+    # Plot 2: Hilbert Transformed Data
+    plt.subplot(3, 1, 2)
+    plt.plot(trimmed_hilbert_transformed_data, label='Hilbert Transformed Data', color='orange', linewidth=1.5)
+    plt.title('Hilbert Transformed Data')
+    plt.xlabel('Sample Index')
+    plt.ylabel('Amplitude')
+    plt.legend()
+
+    # Plot 3: Phases of Raw and Hilbert Transformed Data
+    plt.subplot(3, 1, 3)
     plt.plot(phase_raw, label='Raw ECG Phase', color='blue', linewidth=2)
-
-    # Plot the Hilbert transformed phase in red
     plt.plot(phase_hilbert, label='Hilbert Transformed Phase', color='red', linewidth=2)
-
-    # Add title, labels, and legend
     plt.title('Raw ECG Phase and Hilbert Transformed Phase')
     plt.xlabel('Sample Index')
     plt.ylabel('Phase (radians)')
     plt.legend()
 
-    # Show the plot
+    # Adjust layout and show the plots
     plt.tight_layout()
     plt.show()
 
 # Example usage
-raw_ecg_file = './ecg_data.csv'
-hilbert_transformed_file = './ecg_data_with_hilbert.csv'
+
+# Get the directory where the script is located
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Define the file paths relative to the script directory
+raw_ecg_file = os.path.join(script_dir, '../data/ecg_data.csv')
+hilbert_transformed_file = os.path.join(script_dir, '../data/ecg_data_with_hilbert.csv')
 
 plot_ecg_data_with_hilbert(raw_ecg_file, hilbert_transformed_file)
