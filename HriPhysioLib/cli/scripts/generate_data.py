@@ -10,8 +10,21 @@
  *     See the accompanying LICENSE file for details.
  * ================================================================================
  */ 
+
+ /* ================================================================================
+ * Copyright: (C) 2024, Trushar Ghanekar,
+ *     Hochschule Bonn-Rhein-Sieg (H-BRS), All rights reserved.
+ * 
+ * Author: 
+ *     Trushar Ghanekar <trushar.ghanekar@smail.inf.h-brs.de>
+ * 
+ * CopyPolicy: Released under the terms of the MIT License.
+ *     See the accompanying LICENSE file for details.
+ * ================================================================================
+ */
  
-"""
+ """
+
 import csv
 import os
 import os.path as path
