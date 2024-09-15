@@ -38,21 +38,29 @@ Here’s how you can run it:
 
 ```bash
 cd HriPhysioLib/cli/scripts
-python generate_data.py
+python3 generate_data.py
 ```
 
 📝 **What does `generate_data.py` do?**
 
 ```python
 import csv
+import os
 import matplotlib.pyplot as plt
 import neurokit2 as nk
+
+# Define the folder path
+folder_path = './cli/data'
+
+# Create the folder if it doesn't exist
+os.makedirs(folder_path, exist_ok=True)
 
 # Generate sample ECG data
 ecg_data = nk.ecg_simulate(duration=10, noise=0.05, heart_rate=70)
 
-# Store data as CSV
-with open('ecg_data.csv', mode='w', newline='') as file:
+# Save the ECG data as a CSV file in the data folder
+csv_file_path = os.path.join(folder_path, 'ecg_data.csv')
+with open(csv_file_path, mode='w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['ECG_Data'])
     for value in ecg_data:
@@ -63,7 +71,10 @@ plt.plot(ecg_data)
 plt.xlabel('Measurement #')
 plt.ylabel('Amplitude')
 plt.title('ECG Data')
-plt.savefig('ecg_data.png')
+
+# Save the plot as a PNG file in the data folder
+png_file_path = os.path.join(folder_path, 'ecg_data.png')
+plt.savefig(png_file_path)
 ```
 
 📌 **Key Features**:
@@ -97,7 +108,7 @@ Now that the Hilbert Transform has been applied to the ECG data, you can visuali
 To run the plot:
 
 ```bash
-python plot_data.py
+make run-plot
 ```
 
 📝 **What does `plot_data.py` do?**
@@ -109,36 +120,56 @@ import matplotlib.pyplot as plt
 from scipy.signal import hilbert
 
 def plot_ecg_data_with_hilbert(raw_ecg_file, hilbert_transformed_file):
-    # Load raw ECG data and Hilbert-transformed data
+    # Load the raw ECG data and Hilbert-transformed data
     ecg_data = pd.read_csv(raw_ecg_file)
     ecg_data_with_hilbert = pd.read_csv(hilbert_transformed_file)
 
-    # Extract ECG and Hilbert-transformed data
+    # Extract raw ECG data and Hilbert-transformed data
     raw_ecg_data = ecg_data['ECG_Data']
-    hilbert_transformed_data = ecg_data_with_hilbert.iloc[:, 1]
+    hilbert_transformed_data = ecg_data_with_hilbert.iloc[:, 1]  # Assuming second column contains transformed data
 
-    # Ensure same length for comparison
+    # Ensure both datasets are of the same length
     min_length = min(len(raw_ecg_data), len(hilbert_transformed_data))
     trimmed_raw_ecg_data = raw_ecg_data[:min_length]
     trimmed_hilbert_transformed_data = hilbert_transformed_data[:min_length]
 
-    # Compute Hilbert Transform phase for raw ECG
+    # Apply Hilbert transform to the raw ECG data
     analytic_signal_raw = hilbert(trimmed_raw_ecg_data)
+    magnitude_raw = np.abs(analytic_signal_raw)
+
+    # Compute the phase of both raw and Hilbert-transformed data
     phase_raw = np.angle(analytic_signal_raw)
+    phase_hilbert = np.angle(trimmed_hilbert_transformed_data + 1j * np.imag(trimmed_hilbert_transformed_data))
+
+    # Plot amplitude and phase changes
+    fig, axs = plt.subplots(2, 1, figsize=(10, 8))
+
+    # Plot the amplitudes
+    axs[0].plot(trimmed_raw_ecg_data, label='Raw ECG Data', color='blue', alpha=0.7)
+    axs[0].plot(magnitude_raw, label='Hilbert Transformed Magnitude', color='green', linestyle='--', alpha=0.7)
+    axs[0].set_title('Amplitude Comparison')
+    axs[0].set_xlabel('Sample Index')
+    axs[0].set_ylabel('Amplitude')
+    axs[0].legend()
 
     # Plot the phases
-    plt.figure(figsize=(8, 4))
-    plt.plot(phase_raw, label='Raw ECG Phase', color='blue', linewidth=2)
-    plt.plot(np.angle(trimmed_hilbert_transformed_data), label='Hilbert Phase', color='red', linewidth=2)
-    plt.title('Raw ECG and Hilbert-Transformed Phases')
-    plt.xlabel('Sample Index')
-    plt.ylabel('Phase (radians)')
-    plt.legend()
+    axs[1].plot(phase_raw, label='Raw ECG Phase', color='blue', linewidth=2)
+    axs[1].plot(phase_hilbert, label='Hilbert Transformed Phase', color='red', linewidth=2)
+    axs[1].set_title('Phase Comparison')
+    axs[1].set_xlabel('Sample Index')
+    axs[1].set_ylabel('Phase (radians)')
+    axs[1].legend()
+
+    # Adjust layout and show plot
     plt.tight_layout()
     plt.show()
 
-# Example usage:
-plot_ecg_data_with_hilbert('./ecg_data.csv', './ecg_data_with_hilbert.csv')
+# Example usage
+raw_ecg_file = './cli/data/ecg_data.csv'
+hilbert_transformed_file = './cli/data/ecg_data_with_hilbert.csv'
+
+plot_ecg_data_with_hilbert(raw_ecg_file, hilbert_transformed_file)
+
 ```
 
 📌 **Key Features**:
@@ -162,7 +193,7 @@ In this test, we apply the Hilbert Transform to ECG data, which is a commonly us
 
 1. **Generate ECG Data** using `generate_data.py` 🎛️.
 2. **Build the HriPhysioLib Library** using `make run-cli` 🔨.
-3. **Plot the Data** using `plot_data.py` 📊.
+3. **Plot the Data** using `make run-plot` 📊.
 
 By following these steps, you'll be able to successfully verify the Hilbert Transform functionality in **HriPhysioLib**.
 
