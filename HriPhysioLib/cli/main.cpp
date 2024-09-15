@@ -1,3 +1,15 @@
+/* ================================================================================
+ * Copyright: (C) 2024, Vedika Chauhan,
+ *     Hochschule Bonn-Rhein-Sieg (H-BRS), All rights reserved.
+ * 
+ * Author: 
+ *     Vedika Chauhan <vedika.chauhan@smail.inf.h-brs.de>
+ * 
+ * CopyPolicy: Released under the terms of the MIT License.
+ *     See the accompanying LICENSE file for details.
+ * ================================================================================
+ */
+
 #include <iostream>
 #include <vector>
 #include <string>
