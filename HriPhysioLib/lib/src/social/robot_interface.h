@@ -27,6 +27,7 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 
 /**
  * @enum Peripheral

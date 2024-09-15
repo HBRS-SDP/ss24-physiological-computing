@@ -15,7 +15,15 @@ FetchContent_MakeAvailable(googletest)
 add_executable(hri_physio_tests hilbert-transform-test.cpp)
 
 # Specify the path to your dynamic library
-set(HRI_PHYSIO_LIB_PATH "${CMAKE_SOURCE_DIR}/../build/libhri_physio.dylib")
+if(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
+    # For macOS
+    set(HRI_PHYSIO_LIB_PATH "${CMAKE_SOURCE_DIR}/../build/libhri_physio.dylib")
+elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+    # For Linux (e.g., Ubuntu)
+    set(HRI_PHYSIO_LIB_PATH "${CMAKE_SOURCE_DIR}/../build/libhri_physio.so")
+else()
+    message(FATAL_ERROR "Unsupported operating system: ${CMAKE_SYSTEM_NAME}")
+endif()
 
 # Link against the dynamic library and Google Test
 target_link_libraries(hri_physio_tests PRIVATE 

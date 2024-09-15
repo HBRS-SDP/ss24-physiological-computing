@@ -16,6 +16,7 @@
 #include <sstream>
 #include "processing/hilbert_transform.h"
 #include "stream/csv_streamer.h"
+#include <filesystem> 
 
 std::vector<double> read_csv_data(std::ifstream &input_stream)
 {
