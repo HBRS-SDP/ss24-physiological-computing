@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import neurokit2 as nk
 
 # Define the folder path
-folder_path = '../data'
+folder_path = './cli/data'
 
 # Create the folder if it doesn't exist
 os.makedirs(folder_path, exist_ok=True)
@@ -29,5 +29,3 @@ plt.title('ECG Data')
 # Save the plot as a PNG file in the data folder
 png_file_path = os.path.join(folder_path, 'ecg_data.png')
 plt.savefig(png_file_path)
-
-plt.show()  # Optional: Show the plot on the screen
