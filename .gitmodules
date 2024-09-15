@@ -13,3 +13,12 @@
 [submodule "HriPhysioLib/lib/external/liblsl"]
 	path = HriPhysioLib/lib/external/liblsl
 	url = https://github.com/sccn/liblsl.git
+[submodule "deps/labstreaminglayer"]
+	path = deps/labstreaminglayer
+	url = https://github.com/sccn/labstreaminglayer.git
+[submodule "devices/LSL-Android"]
+	path = devices/LSL-Android
+	url = https://github.com/kothiga/LSL-Android.git
+[submodule "deps/yaml-cpp"]
+	path = deps/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git

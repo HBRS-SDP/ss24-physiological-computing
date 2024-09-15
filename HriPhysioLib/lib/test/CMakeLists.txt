@@ -12,7 +12,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 # Add your test executable
-add_executable(hri_physio_tests hilbert-transform-test.cpp)
+add_executable(hri_physio_tests hilbert_transform_test.cpp)
 
 # Specify the path to your dynamic library
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
