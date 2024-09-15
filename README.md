@@ -196,7 +196,6 @@ Then, to build and test the library, simply use:
 make build-library
 make run-library-tests
 make run-cli
-make run-plot
 ```
 
 #### 🔧 **Method 2: Manual Git Clone and Adding Submodules**
@@ -221,7 +220,6 @@ Then, use the same **Makefile** commands as in Method 1 to build and run tests:
 make build-library
 make run-library-tests
 make run-cli
-make run-plot
 ```
 
 ---
