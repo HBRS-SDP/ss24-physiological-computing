@@ -46,11 +46,12 @@ python3 generate_data.py
 ```python
 import csv
 import os
+import os.path as path
 import matplotlib.pyplot as plt
 import neurokit2 as nk
 
 # Define the folder path
-folder_path = './cli/data'
+folder_path = '../data'
 
 # Create the folder if it doesn't exist
 os.makedirs(folder_path, exist_ok=True)
@@ -58,9 +59,19 @@ os.makedirs(folder_path, exist_ok=True)
 # Generate sample ECG data
 ecg_data = nk.ecg_simulate(duration=10, noise=0.05, heart_rate=70)
 
-# Save the ECG data as a CSV file in the data folder
-csv_file_path = os.path.join(folder_path, 'ecg_data.csv')
-with open(csv_file_path, mode='w', newline='') as file:
+# Get the directory path where the script is located
+script_dir = path.dirname(path.abspath(__file__))
+
+# Define the directory and file path for saving the CSV
+data_dir = path.join(script_dir, '../data')
+file_path = path.join(data_dir, 'ecg_data.csv')
+
+# Ensure the directory exists; if not, create it
+if not os.path.exists(data_dir):
+    os.makedirs(data_dir)
+
+# Store data as CSV
+with open(file_path, mode='w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['ECG_Data'])
     for value in ecg_data:
@@ -108,12 +119,13 @@ Now that the Hilbert Transform has been applied to the ECG data, you can visuali
 To run the plot:
 
 ```bash
-make run-plot
+python3 plot_data.py
 ```
 
 📝 **What does `plot_data.py` do?**
 
 ```python
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -165,11 +177,10 @@ def plot_ecg_data_with_hilbert(raw_ecg_file, hilbert_transformed_file):
     plt.show()
 
 # Example usage
-raw_ecg_file = './cli/data/ecg_data.csv'
-hilbert_transformed_file = './cli/data/ecg_data_with_hilbert.csv'
+raw_ecg_file = '../data/ecg_data.csv'
+hilbert_transformed_file = '../data/ecg_data_with_hilbert.csv'
 
 plot_ecg_data_with_hilbert(raw_ecg_file, hilbert_transformed_file)
-
 ```
 
 📌 **Key Features**:

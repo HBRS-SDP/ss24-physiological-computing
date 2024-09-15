@@ -32,7 +32,7 @@ import matplotlib.pyplot as plt
 import neurokit2 as nk
 
 # Define the folder path
-folder_path = './cli/data'
+folder_path = '../data'
 
 # Create the folder if it doesn't exist
 os.makedirs(folder_path, exist_ok=True)
